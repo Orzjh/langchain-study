@@ -1,0 +1,25 @@
+# LangChain 系列教程（二）：Model I/O
+
+## 介绍
+
+LangChain 提供的 LangChain Expression Language(LCEL) 让开发可以很方便地将多个组件连接成 AI 工作流。如下是一个简单的工作流：
+
+```python
+chain = prompt | chatmodel | outputparser
+chain.invoke({"input":"What's your name?"})
+```
+
+其中，通过由|管道操作符连接而成的 LangChain 表达式，我们方便地将三个组件 **prompt chatmodel outparser** 按顺序连接起来，这就形成了一个 AI 工作流。 **invoke()**则是实际运行这个工作流。
+
+而 LangChain 的 Model I/O 模块是与语言模型（LLMs）进行交互的核心组件，它包括**模型输入（Prompts）、模型本身（Models）和模型输出（Output Parsers）**。
+
+在 LangChain 的 Model I/O 模块设计中，包含三个核心部分： **Prompt Template，Model和Output Parser**。
+
+- **Prompt Template**：通过模板化来管理大模型的输入。
+- **Model**：使用通用接口调用不同的大语言模型。
+- **Output Parser**：用来从模型的推理中提取信息，并按照预先设定好的模版来规范化输出。
+
+## 代码
+
+参考 [langchain_modelio.html](langchain_modelio.html) 
+
