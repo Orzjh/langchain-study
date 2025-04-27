@@ -13,7 +13,7 @@
 - **LangChain 模板**：一系列易于部署的参考架构，用于各种任务。
 - **LangServe**：一个用于将 LangChain 链部署为 REST API 的库。
 - **LangSmith**：一个开发者平台，让你可以调试、测试、评估和监控基于任何 LLM 框架构建的链，并且与 LangChain 无缝集成。
-  - ![](1.png)
+![](1.png)
 
 ## 核心模块
 
@@ -270,5 +270,5 @@ print(response)
 
 结果如下图所示
 
-![](/Users/orzjh/Documents/LangChain/LangChain 系列教程（一）：入门/4.png)
+![](4.png)
 
