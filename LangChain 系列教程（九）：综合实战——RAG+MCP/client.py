@@ -21,6 +21,8 @@ load_dotenv()
 os.environ["OPENAI_API_BASE"] = os.getenv("OPENAI_API_BASE")
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
+# 数据提取
+
 base_dir = 'Docs'
 documents = []
 
@@ -36,9 +38,11 @@ for file in os.listdir(base_dir):
         loader = TextLoader(file_path)
         documents.extend(loader.load())
 
+# 文本分割
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=10)
 chunked_documents = text_splitter.split_documents(documents)
 
+# 嵌入、向量入库
 if not os.path.exists("./Docs-database"):
     vectorstore = Qdrant.from_documents(
         documents=chunked_documents,
@@ -75,8 +79,7 @@ mcp_configs = {
         "args": [
             "-y",
             "@modelcontextprotocol/server-filesystem",
-            "/Users/orzjh/Desktop",
-            "/Users/orzjh/Desktop/knowledge-base"
+            "/Users/orzjh/Documents/LangChain/LangChain 系列教程（九）：综合实战——RAG+MCP",
         ]
     },
 }
@@ -91,7 +94,7 @@ async def ask(msg):
     finally:
         await cleanup()
 
-async def main():
+async def multiask():
     tools, cleanup = await convert_mcp_to_langchain_tools(mcp_configs)
     tools.append(rag_tool)
 
@@ -109,11 +112,11 @@ async def main():
         await cleanup()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(multiask())
 
 
 # 抓取stable-diffusion这篇论文的完整内容pdf（摘要、介绍、主要方法等）并转化为markdown格式，保存到test文件夹下。回答用中文
 # 抓取3d-gaussian-splatting这篇论文的完整内容pdf（摘要、介绍、主要方法等）并转化为markdown格式，保存到test文件夹下。回答用中文
 # 抓取anydoor这篇论文的完整内容pdf（摘要、介绍、主要方法等）并转化为markdown格式，保存到test文件夹下。回答用中文
-# 抓取https://leetcode.cn/problems/next-permutation/description/，保存到test文件夹下，然后给出解法。回答用中文
+# 抓取https://leetcode.cn/problems/next-permutation/description/并转化为markdown格式，保存到Docs文件夹下，给出解法。回答用中文
 # 我刚才说了什么？

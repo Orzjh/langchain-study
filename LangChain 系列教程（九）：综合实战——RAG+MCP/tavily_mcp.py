@@ -31,3 +31,6 @@ async def search(query: str, search_depth: str = "basic") -> str:
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+
+
+
