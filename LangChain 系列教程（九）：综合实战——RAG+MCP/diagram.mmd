@@ -1,0 +1,16 @@
+
+graph TD
+    User[用户输入] --> Agent[ReAct智能体 LangGraph+LLM]
+    Agent -- 进行工具规划与选择 --> ToolsSubgraph[工具集]
+    subgraph ToolsSubgraph
+        direction TB
+        LocalRAG[本地RAG工具 rag_tool]
+        TavilySearch[Tavily实时搜索 MCP]
+        FetchURL[Fetch URL内容 MCP]
+        FileSystemOps[文件系统操作 MCP]
+    end
+    ToolsSubgraph -- 工具执行结果/观察 --> Agent
+    Agent -- 生成最终响应 --> Output[系统输出]
+    Agent -- 管理会话状态 --> AgentState[InMemorySaver 检查点]
+    LocalRAG -- 访问/检索 --> VectorDB[Qdrant向量数据库]
+    LocalRAG -- 管理RAG对话上下文 --> RAGMemory[ConversationBufferMemory]
